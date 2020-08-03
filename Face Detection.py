@@ -64,27 +64,4 @@ def face_detection():
     video_capture.release()
     cv2.destroyAllWindows()
 
-def crop_image(result, image):
-    for obj in result:
-        for key, val in obj.items():
-            if key == "box":
-                bounding_box = val
-            elif key == "keypoints":
-                keypoints = val
-        cv2.rectangle(image,
-                      (bounding_box[0], bounding_box[1]),
-                      (bounding_box[0] + bounding_box[2], bounding_box[1] + bounding_box[3]),
-                      (0, 155, 255), 2)
-
-        cv2.circle(image, (keypoints['left_eye']), 2, (0, 155, 255), 2)
-        cv2.circle(image, (keypoints['right_eye']), 2, (0, 155, 255), 2)
-        cv2.circle(image, (keypoints['nose']), 2, (0, 155, 255), 2)
-        cv2.circle(image, (keypoints['mouth_left']), 2, (0, 155, 255), 2)
-        cv2.circle(image, (keypoints['mouth_right']), 2, (0, 155, 255), 2)
-        cv2.imshow('image', image)
-        image_cropped = image[bounding_box[1]: bounding_box[1] + bounding_box[3],
-                        bounding_box[0]: bounding_box[0] + bounding_box[2]]
-        cv2.imshow('image', image_cropped)
-        return image_cropped
-
 face_detection()
